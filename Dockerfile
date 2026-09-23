@@ -9,4 +9,9 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+CMD ["sh", "-c", "\
+  : \"${DB_URL:?ERROR: DB_URL no está definida}\" && \
+  : \"${DB_USERNAME:?ERROR: DB_USERNAME no está definida}\" && \
+  : \"${DB_PASSWORD:?ERROR: DB_PASSWORD no está definida}\" && \
+  echo 'Variables de base de datos detectadas correctamente' && \
+  exec java -jar app.jar"]
