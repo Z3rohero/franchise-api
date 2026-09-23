@@ -3,9 +3,10 @@ spring:
     import: 'optional:file:.env[.properties]'
   application: { name: franchise-api }
   profiles: { default: dev }
+
   datasource:
-    url: '${DB_URL:jdbc:postgresql://localhost:5432/postgres}'
-    username: '${DB_USERNAME:postgres}'
+    url: '${DB_URL:jdbc:postgresql://aws-0-us-east-1.pooler.supabase.com:5432/postgres?sslmode=require}'
+    username: '${DB_USERNAME:postgres.mnjzhybidyywbugdxsru}'
     password: '${DB_PASSWORD:}'
     driver-class-name: org.postgresql.Driver
     hikari:
@@ -14,7 +15,6 @@ spring:
       idle-timeout: 30000
       max-lifetime: 1500000
       connection-timeout: 20000
-
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate: { ddl-auto: update }
