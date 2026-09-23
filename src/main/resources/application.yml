@@ -1,0 +1,40 @@
+spring:
+  config:
+    import: 'optional:file:.env[.properties]'
+  application: { name: franchise-api }
+  profiles: { default: dev }
+  datasource:
+    url: '${DB_URL:jdbc:postgresql://localhost:5432/postgres}'
+    username: '${DB_USERNAME:postgres}'
+    password: '${DB_PASSWORD:}'
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      idle-timeout: 30000
+      max-lifetime: 1500000
+      connection-timeout: 20000
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate: { ddl-auto: update }
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    try-it-out-enabled: true
+  packages-to-scan: com.franchise.infrastructure.adapter.in.rest.controller
+  paths-to-match: /api/**
+
+management: { endpoints: { web: { exposure: { include: health,info } } } }
+app: { cors-origin: '${CORS_ORIGIN:http://localhost:4200}' }
+server: { port: '${PORT:8080}' }

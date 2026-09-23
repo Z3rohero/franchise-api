@@ -1,0 +1,2 @@
+logging: { level: { com.franchise: DEBUG } }
+spring: { jpa: { show-sql: true } }
